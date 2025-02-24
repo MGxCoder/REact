@@ -1,48 +1,64 @@
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
-import { TextField, Button, Box, Typography } from "@mui/material";
+import PropTypes from "prop-types";
 
-function Login() {
+const Login = ({ setIsAuthenticated }) => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const navigate = useNavigate();
 
-  const handleLogin = () => {
-    // Dummy authentication (replace with actual API request)
-    if (email === "admin@test.com" && password === "password") {
-      localStorage.setItem("auth", "true"); // Store auth status
-      navigate("/home"); // Redirect to Home
+  const handleLogin = (e) => {
+    e.preventDefault();
+    if (email === "admin@test.com" && password === "pass") {
+      localStorage.setItem("auth", "true");
+      setIsAuthenticated(true);
+      navigate("/");
     } else {
-      alert("Invalid credentials!");
+      alert("Invalid credentials");
     }
   };
 
   return (
-    <Box sx={{ maxWidth: 400, mx: "auto", mt: 10, textAlign: "center" }}>
-      <Typography variant="h4">Login</Typography>
-      <TextField
-        fullWidth
-        label="Email"
-        margin="normal"
-        value={email}
-        onChange={(e) => setEmail(e.target.value)}
-      />
-      <TextField
-        fullWidth
-        label="Password"
-        type="password"
-        margin="normal"
-        value={password}
-        onChange={(e) => setPassword(e.target.value)}
-      />
-      <Button variant="contained" color="primary" fullWidth sx={{ mt: 2 }} onClick={handleLogin}>
-        Login
-      </Button>
-      <Button color="secondary" sx={{ mt: 2 }} onClick={() => navigate("/register")}>
-        Register Here
-      </Button>
-    </Box>
+    <div className="bg-black min-h-screen flex justify-center items-start pt-[300px]">
+      <div className="bg-white p-8 rounded-lg shadow-lg w-96">
+        <h2 className="text-3xl font-bold text-center mb-6 text-purple-700">Login</h2>
+        <form onSubmit={handleLogin} className="space-y-6">
+          <div>
+            <label className="block text-gray-700 font-medium mb-1">Username</label>
+            <input
+              type="email"
+              placeholder="Enter your email"
+              className="w-full p-3 border rounded-lg focus:outline-none focus:ring-2 focus:ring-purple-500"
+              value={email}
+              onChange={(e) => setEmail(e.target.value)}
+              required
+            />
+          </div>
+          <div>
+            <label className="block text-gray-700 font-medium mb-1">Password</label>
+            <input
+              type="password"
+              placeholder="Enter your password"
+              className="w-full p-3 border rounded-lg focus:outline-none focus:ring-2 focus:ring-purple-500"
+              value={password}
+              onChange={(e) => setPassword(e.target.value)}
+              required
+            />
+          </div>
+          <button
+            type="submit"
+            className="w-full bg-purple-600 text-white p-3 rounded-lg hover:bg-purple-700 transition"
+          >
+            Login
+          </button>
+        </form>
+      </div>
+    </div>
   );
-}
+};
+
+Login.propTypes = {
+  setIsAuthenticated: PropTypes.func.isRequired,
+};
 
 export default Login;

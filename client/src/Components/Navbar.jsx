@@ -1,5 +1,6 @@
 import { Link, useNavigate } from "react-router-dom";
 import { AppBar, Toolbar, Button, Box ,Typography} from "@mui/material";
+import Home from "../pages/Home";
 
 function Navbar() {
   const navigate = useNavigate();
@@ -17,7 +18,7 @@ function Navbar() {
         </Typography>
         <Box sx={{ position: "absolute", right: 20, top: 10, display: "flex", gap: 2 }}>
            
-          <Button color="inherit" component={Link} to="/home">Home</Button>
+          <Button color="inherit" component={Home} to="/home">Home</Button>
           <Button color="inherit" component={Link} to="/projects">Projects</Button>
           <Button color="inherit" component={Link} to="/tasks">Tasks</Button>
           <Button color="inherit" onClick={handleLogout}>Logout</Button>

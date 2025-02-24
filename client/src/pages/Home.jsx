@@ -1,6 +1,5 @@
 import { useState } from "react";
 import AddProjectButton from "../Components/AddProjectButton";
-import { Container, Typography, List, ListItem, Paper, Box, Button } from "@mui/material";
 import { FaPlus } from "react-icons/fa";
 
 const Home = () => {
@@ -11,44 +10,31 @@ const Home = () => {
   };
 
   return (
-    <Container maxWidth="md" sx={{ mt: 10, textAlign: "center" }}>
-      {/* Title */}
-      <Typography variant="h4" fontWeight="bold" color="primary" gutterBottom>
-        Projects
-      </Typography>
+    <div className="p-4">
+      <h1 className="text-2xl font-bold mb-4">Projects</h1>
 
-      {/* If no projects, show "+" button */}
       {projects.length === 0 ? (
-        <Box sx={{ mt: 4 }}>
-          <Button
-            variant="contained"
-            color="primary"
-            startIcon={<FaPlus />}
-            onClick={() => document.getElementById("addProjectButton").click()}
+        <div className="flex justify-center items-center h-64">
+          <button
+            onClick={() => handleAddProject({ name: "New Project", description: "Project description" })}
+            className="bg-purple-600 text-white p-4 rounded-full shadow-lg hover:bg-purple-700 transition"
           >
-            Add Project
-          </Button>
-        </Box>
+            <FaPlus size={24} />
+          </button>
+        </div>
       ) : (
-        <List>
-          {projects.map((project, index) => (
-            <ListItem key={index} sx={{ mb: 2, justifyContent: "center" }}>
-              <Paper elevation={3} sx={{ p: 2, width: "100%" }}>
-                <Typography variant="h6">{project.name}</Typography>
-                <Typography variant="body2" color="text.secondary">
-                  {project.description}
-                </Typography>
-              </Paper>
-            </ListItem>
-          ))}
-        </List>
+        <>
+          <ul>
+            {projects.map((project, index) => (
+              <li key={index} className="p-2 border rounded mb-2">
+                <strong>{project.name}</strong>: {project.description}
+              </li>
+            ))}
+          </ul>
+          <AddProjectButton onAdd={handleAddProject} />
+        </>
       )}
-
-      {/* Hidden AddProjectButton (for clicking via "+") */}
-      <Box sx={{ mt: 4 }}>
-        <AddProjectButton id="addProjectButton" onAdd={handleAddProject} />
-      </Box>
-    </Container>
+    </div>
   );
 };
 

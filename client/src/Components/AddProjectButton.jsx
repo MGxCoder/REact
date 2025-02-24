@@ -1,5 +1,6 @@
 import { useState ,} from "react";
 import { FaPlus } from "react-icons/fa";
+import PropTypes from "prop-types";
 
 function AddProjectButton({ onAdd }) {
     const [showModal, setShowModal] = useState(false);
@@ -54,5 +55,8 @@ function AddProjectButton({ onAdd }) {
         </div>
     );
 }
+AddProjectButton.propTypes = {
+    onAdd: PropTypes.func.isRequired,
+};
 
 export default AddProjectButton;
